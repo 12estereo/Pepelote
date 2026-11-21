@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'IA_A13J0_Android_v0_8.zip'
+      - 'IA_A13J0_Android_v0_9.zip'
       - '.github/workflows/build-apk.yml'
 
 jobs:
@@ -13,30 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Set up Java 17
+      - name: Configurar Java
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Gradle
+      - name: Configurar Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Extract Android project
-        run: unzip -q IA_A13J0_Android_v0_8.zip
+      - name: Extraer proyecto
+        run: unzip -q IA_A13J0_Android_v0_9.zip
 
-      - name: Build debug APK
+      - name: Compilar APK
         working-directory: IA_A13J0
         run: gradle assembleDebug --no-daemon
 
-      - name: Upload APK
+      - name: Guardar APK
         uses: actions/upload-artifact@v4
         with:
-          name: IA-A13J0-debug-apk
+          name: IA-A13J0-v0.9-APK
           path: IA_A13J0/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
