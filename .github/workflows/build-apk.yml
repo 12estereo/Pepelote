@@ -1,11 +1,11 @@
 
-name: Build ++IA A13J0++ APK
+name: Build ++IA A13J0++ APK v0.9
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'IA_A13J0_Android_v0_9.zip'
+      - 'IA_A13J0_Android_v0_9_icono_A.zip'
       - '.github/workflows/build-apk.yml'
 
 jobs:
@@ -13,30 +13,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Descargar repositorio
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Configurar Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Configurar Gradle
+      - name: Set up Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Extraer proyecto
-        run: unzip -q IA_A13J0_Android_v0_9.zip
+      - name: Extract Android project
+        run: unzip -q IA_A13J0_Android_v0_9_icono_A.zip
 
-      - name: Compilar APK
+      - name: Build APK
         working-directory: IA_A13J0
         run: gradle assembleDebug --no-daemon
 
-      - name: Guardar APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: IA-A13J0-v0.9-APK
+          name: IA-A13J0-v0.9-icono-A
           path: IA_A13J0/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 14
