@@ -1,11 +1,11 @@
 
-name: Build ++IA A13J0++ APK
+name: Build ++IA A13J0++ APK v1.4
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'IA_A13J0_Android_v1_3.zip'
+      - 'IA_A13J0_Android_v1_4.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -14,6 +14,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
@@ -31,8 +32,7 @@ jobs:
           packages: 'platform-tools'
 
       - name: Instalar componentes Android
-        run: |
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
 
       - name: Configurar Gradle 8.9
         uses: gradle/actions/setup-gradle@v4
@@ -40,7 +40,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: Extraer proyecto
-        run: unzip -q IA_A13J0_Android_v1_3.zip
+        run: unzip -q IA_A13J0_Android_v1_4.zip
 
       - name: Compilar APK
         working-directory: IA_A13J0
@@ -49,7 +49,7 @@ jobs:
       - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
-          name: IA-A13J0-v1.3-APK
+          name: IA-A13J0-v1.4-APK
           path: IA_A13J0/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
