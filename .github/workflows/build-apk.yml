@@ -1,11 +1,11 @@
 
-name: Build ++IA A13J0++ APK v1.4
+name: Build ++IA A13J0++ APK v1.3.1
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'IA_A13J0_Android_v1_4.zip'
+      - 'IA_A13J0_Android_v1_3_mejorada.zip'
       - '.github/workflows/build-apk.yml'
 
 permissions:
@@ -14,7 +14,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
@@ -40,7 +39,7 @@ jobs:
           gradle-version: '8.9'
 
       - name: Extraer proyecto
-        run: unzip -q IA_A13J0_Android_v1_4.zip
+        run: unzip -q IA_A13J0_Android_v1_3_mejorada.zip
 
       - name: Compilar APK
         working-directory: IA_A13J0
@@ -49,7 +48,7 @@ jobs:
       - name: Publicar APK
         uses: actions/upload-artifact@v4
         with:
-          name: IA-A13J0-v1.4-APK
+          name: IA-A13J0-v1.3.1-APK
           path: IA_A13J0/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
